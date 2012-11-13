@@ -1,0 +1,37 @@
+['_a', '_b', '_c', '_d', '_e', '_f', '_g', '_h', '_i', '_m', '_n', '_o', '_p', '_r', '_s', '_t', '_u', '_v']
+
+>>> def do(b):
+	global a
+	if "_" + b not in a:
+		a.append("_" + b)
+		a.sort()
+		print(a)
+	else:
+		print("we already have " + b)
+		
+
+_a - blah(..)
+_b - Boolean (just creating a var not ops)
+_c - control
+_d - data (not a num or string ...)
+_e - test functions = , < ,> ...
+_f - user defined function
+_g - loGic
+_h - otHer
+_i - fIle functions
+_j - function and sub
+_k - end
+_m - math (+,-,/ ...)
+_n - a type of number (double, int, long ...) 
+_o - thing.blah
+_p - permissoins (Public, private ...)
+_r - stRing
+_s - a user defined sub
+_t - a user defined xml thing
+_u - unknowns things
+_v - varaibles 
+_w - new var (Dim, Static, Const)
+_y - XML tYpes
+_z - End
+ 
+_. - period

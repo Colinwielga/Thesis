@@ -1,0 +1,9 @@
+Attribute VB_Name = "Module1"
+Public TShirts As Integer, Sweaters As Integer, Polos As Integer, DressShirts As Integer, Jeans As Integer, DressPants As Integer, Shorts As Integer, Underwear As Integer, Socks As Integer, Swimsuits As Integer, Pajamas As Integer, Dresses As Integer, Tops As Integer, Skirts As Integer, Hoodies As Integer
+Public Cameras As Integer, Televisions As Integer, Computers As Integer, CellPhones As Integer, iPods As Integer, HomeTheaters As Integer, Xboxs As Integer, Playstations As Integer, Wiis As Integer, Games As Integer, Movies As Integer, CDs As Integer
+Public CasualShoes As Integer, DressShoes As Integer, Sandals As Integer, AthleticShoes As Integer, Flats As Integer, Pumps As Integer, StrappyHeels As Integer, Platforms As Integer, Moccasins As Integer, Boots As Integer
+Public CribToys As Integer, StrollerToys As Integer, ElectronicSwings As Integer, Dolls As Integer, PlayKitchens As Integer, RidingToys As Integer, RadioFlyers As Integer, Legos As Integer, BoardGames As Integer, NerfToys As Integer
+Public StorageBins As Integer, LaundryBins As Integer, Shelving As Integer, Rugs As Integer, Curtains As Integer, TableLamps As Integer, FloorLamps As Integer, Pillows As Integer, Mirrors As Integer, Clocks As Integer, Microwaves As Integer, Blenders As Integer, Refridgerators As Integer, Toasters As Integer, Dinnerware As Integer, Drinkware As Integer, Comforters As Integer, Duvets As Integer, Sheets As Integer, Blankets As Integer, Mattresses As Integer, Towels As Integer, Nightstands As Integer, Dressers As Integer, Desks As Integer, OfficeChairs As Integer, Bookcases As Integer, Chairs As Integer, Sofas As Integer, DinningTables As Integer, Grills As Integer, PatioDinningSets As Integer, Gazebos As Integer, Umbrellas As Integer, EntertainmentCenters As Integer
+
+
+

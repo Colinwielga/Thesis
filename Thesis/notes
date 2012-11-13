@@ -1,0 +1,74 @@
+new TODO
+	write getPieces in cmp is like startwork
+	
+
+
+TODO:
+	move file so refs are inside this project
+	git on git
+	withEvents
+	deal with " _" and :
+	set sucks need to make an arraylist can check all the cases - for follows
+	think about .
+	does For create its own vars?
+	"blah"; why do get these count? 
+	looks like vars can be defined in different orders so we need to look over it twice
+	$"Form1.frx" this happened once i need to fix that
+	it seems files can referance other files in their folder.. need to deal with
+	 
+	
+thought -> encoding needs to be in a file that we read-in and then edit with anything new we find
+	blah = casdf	-> var
+	asdf.blah		->
+	blah(casdf)		->
+	
+	
+what are these things:
+:0000
+;
+#1
+),Loop,Close,#1,cmdadddata,
+=,False,psychentryform,_.,Visible,
+termlook,=,InputBox,(,"Enter the psychology term you would like to look up",
+_.,Print,termlook;,Tab,(,
+As,Integer,comp,As,Integer,		//looks like we are defining multiple vars at once i need to catch that...
+pos
+Open
+Close
+&
+comp
+_.,Hide,LevelOne,_.,Show,
+
+
+File controls 
+#1
+Open
+Close
+Write
+Input
+
+
+_.,Print,termlook;,Tab,(,
+LoadPicture,(,PATH,&,"Images\ThumbsUp.gif",
+
+what is ReDim ? 
+what is $ ?
+
+i think if we encounter a : we simply remove it... - no because of :34D2, i'll just kick it out if its at the end of a chunk
+
+C://Users//Colin//Documents//School//Thesis 2//VBCode//original//VBProjectsFall03//CameronBromen//Recruiting.frm
+
+from talking to dad
+- multi dimensional comparison
+- look at string len
+- look at what follows what
+- do research
+- use blocks
+
+NOTES
+	i just remove the # from Line Input # , Input # , Write # , Print # Close #.
+	atm Line Input is one commmand but we also have commands Line and Input this is dangerous
+	so it there is a roll of things not in the other they should count minus... maybe that make putting dead code in kill us
+
+quick cmp
+	- just take the biggest string and then the next biggest.. and so on	
