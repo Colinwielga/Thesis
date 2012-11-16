@@ -8,6 +8,97 @@ public class Cmp {
 	public static void cmpProject(String[] a, String[] b) {
 
 	}
+	
+	public static int qc_rapper(String a, String b){
+		boolean[][] big = new boolean[a.length()][b.length()];
+		// generate the big matrix
+		for (int i = 0; i < a.length(); i++) {
+			for (int j = 0; j < b.length(); j++) {
+				big[i][j] = a.charAt(i) == b.charAt(j);
+			}
+		}
+		//printbig(big);
+		System.out.println("");
+		return(qc(big));
+	}
+	
+	public static int qc(boolean[][] in) {
+		// find all the Straights
+		ArrayList<Straight> straights = new ArrayList<Straight>();
+		for (int i = 0; i < in.length; i++) {
+			for (int j = 0; j < in[i].length; j++) {
+				if (in[i][j]) {
+					int k = 1;
+					boolean go = true;
+					while (go) {
+						int l=0;
+						boolean look = true;
+						while (look && l<straights.size()){
+							if (k<straights.get(l).len){
+								l++;
+							}else {
+								look = false;
+							}
+						}
+						straights.add(l,new Straight(i, j, i + k, j + k, k));
+						if (i + k < in.length && j + k < in.length) {
+							if (in[i + k][j + k]) {
+								k++;
+							} else {
+								go = false;
+							}
+						} else {
+							go = false;
+						}
+					}
+				}
+			}
+		}
+		// pull out all the biggest one ...if two are tied and overlap take the one we found first
+		Straight currentStraight;
+		ArrayList<Straight> result = new ArrayList<Straight>();
+		while (straights.size() != 0) {
+			currentStraight = straights.get(0);
+			straights.remove(0);
+			// ArrayList<Straight> lookingat = new ArrayList<Straight>();
+			for (int i = 0; i < straights.size();) {
+				if (currentStraight.xstart <= straights.get(i).xstart
+						&& straights.get(i).xstart < currentStraight.xend) {
+					straights.remove(i);
+				} else if (currentStraight.xstart < straights.get(i).xend
+						&& straights.get(i).xend <= currentStraight.xend) {
+					straights.remove(i);
+				} else if (currentStraight.ystart <= straights.get(i).ystart
+						&& straights.get(i).ystart < currentStraight.yend) {
+					straights.remove(i);
+				} else if (currentStraight.ystart < straights.get(i).yend
+						&& straights.get(i).yend <= currentStraight.yend) {
+					straights.remove(i);
+				} else {
+					i++;
+				}
+			}
+			result.add(currentStraight);
+		}
+		// add up what we got...
+		int resultsum = 0;
+		for (int i=0;i<result.size();i++){
+			resultsum = resultsum + scale(result.get(i).len);
+		}
+		boolean[][] toprint = new boolean[in.length][in[0].length];
+		for (int i=0;i<toprint.length;i++){
+			for (int j=0;j<toprint[i].length;j++){
+				toprint[i][j] = false;
+			}
+		}
+		for (int i=0;i<result.size();i++){
+			for (int j=0;j<result.get(i).len;j++){
+				toprint[result.get(i).ystart + j][result.get(i).xstart + j] = true;
+			}
+		}
+		//printbig(toprint);
+		return resultsum;
+	}
 
 	public static int cmp(String a, String b) {
 		boolean[][] big = new boolean[a.length()][b.length()];

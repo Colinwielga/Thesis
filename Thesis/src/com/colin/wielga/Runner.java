@@ -13,6 +13,7 @@ public class Runner {
 	public static boolean debug = false;
 	public static ArrayList<Integer> lens = new ArrayList<Integer>();
 	public static ArrayList<String> result = new ArrayList<String>();
+	public static HashMap<String,Integer> counts = new HashMap<String,Integer>();
 
 	/**
 	 * @param args
@@ -33,7 +34,7 @@ public class Runner {
 		// System.out.print(temp[i] +",");
 		// }
 
-//		 System.out.println("" + Cmp.cmp("acasdqaseasdadce", "eadasdffasqasdwasadcada"));
+		 System.out.println("" + Cmp.qc_rapper("acasdqaseasdqqafeadfawadasdveacasxczxcvdasdfeasdveghyagasdfvcrascvxawcefradvdacxvascvcxavzxcvawasdaqsasdfadasdfasdwdedasasdadce", "eadasdffasqasdasfrdedwsadsfascasdcadsfaedcvascqacasdvaeacvadsvasdveadfeadsfasdfasdsdasdfbhbhbfasdfedssqaswdesdassdwwwsdasdwfedasesfwaeqdswwasadcada"));
 
 		// countEncoded("C://Users//Colin//Documents//School//Thesis 2//VBCode//original//VBProjectsFall03//CsciStudent");
 
@@ -366,5 +367,21 @@ public class Runner {
 			System.err.println("Error: " + e.getMessage());
 		}
 		return scores;
+	}
+	
+	public static int countEvents(String in){
+		if (counts.containsKey(in)){
+			return counts.get(in);
+		}
+		int c=0;
+		for (int i=0;i<result.size();i++){
+			for (int j=0;j<result.get(i).length() - in.length();j++){
+				if (result.get(i).substring(j,j+in.length()).equals(in)){
+					c++;
+				}
+			}
+		}
+		counts.put(in, c);
+		return c;
 	}
 }

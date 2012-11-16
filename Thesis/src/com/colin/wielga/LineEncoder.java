@@ -799,7 +799,15 @@ public class LineEncoder {
 	}
 
 	private static boolean isFile(String string) {
-		// TODO Auto-generated method stub
+		String end = string.substring(1);
+		if (string.startsWith("#")){
+			try{
+				Float.parseFloat(end);
+				return true;
+			}finally{
+				return false;
+			}
+		}
 		return false;
 	}
 
