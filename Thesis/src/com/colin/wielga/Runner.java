@@ -22,7 +22,12 @@ public class Runner {
 		Counter.load("C:\\Users\\Colin\\Documents\\School\\Thesis 2\\encoding1.txt");
 		LineEncoder.load("lineencoding1");
 		Scanner s = new Scanner(System.in);
-
+		
+//		String[] temp = LineEncoder.encode("VBcode\\original\\VBProjectsFall03\\aahumann\\frmPick.frm");
+//		for (int i =0;i<temp.length;i++){
+//			System.out.println(temp[i]);
+//		}
+		
 //		allEncodeLine("C://Users//Colin//Documents//School//Thesis 2//VBCode//original");
 //		cmpall();
 		// allPerceeds("C://Users//Colin//Documents//School//Thesis 2//VBCode//original","i",1);
@@ -34,7 +39,7 @@ public class Runner {
 		// System.out.print(temp[i] +",");
 		// }
 
-		 System.out.println("" + Cmp.qc_rapper("acasdqaseasdqqafeadfawadasdveacasxczxcvdasdfeasdveghyagasdfvcrascvxawcefradvdacxvascvcxavzxcvawasdaqsasdfadasdfasdwdedasasdadce", "eadasdffasqasdasfrdedwsadsfascasdcadsfaedcvascqacasdvaeacvadsvasdveadfeadsfasdfasdsdasdfbhbhbfasdfedssqaswdesdassdwwwsdasdwfedasesfwaeqdswwasadcada"));
+		//System.out.println("" + Cmp.qc_rapper("acasdqaseasdqqafeadfawadasdveacasxczxcvdasdfeasdveghyagasdfvcrascvxawcefradvdacxvascvcxavzxcvawasdaqsasdfadasdfasdwdedasasdadce", "eadasdffasqasdasfrdedwsadsfascasdcadsfaedcvascqacasdvaeacvadsvasdveadfeadsfasdfasdsdasdfbhbhbfasdfedssqaswdesdassdwwwsdasdwfedasesfwaeqdswwasadcada"));
 
 		// countEncoded("C://Users//Colin//Documents//School//Thesis 2//VBCode//original//VBProjectsFall03//CsciStudent");
 

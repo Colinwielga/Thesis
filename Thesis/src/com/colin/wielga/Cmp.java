@@ -100,6 +100,13 @@ public class Cmp {
 		return resultsum;
 	}
 
+	//TODO i am writing an algorithm that check to see if we know a striaght larger than any set of striaghts in its cross
+	public static boolean check(Straight[] s, Straigh biggie){
+		int tobeat = scale(biggie.len);
+		
+	}
+	
+	
 	public static int cmp(String a, String b) {
 		boolean[][] big = new boolean[a.length()][b.length()];
 		// generate the big matrix
@@ -133,6 +140,7 @@ public class Cmp {
 			}
 		}
 		cuts.add(big.length);
+		
 		// now we run startwork on all the chunks
 		boolean[][] b2;
 		ArrayList<Combo[]> pieces = new ArrayList<Combo[]>();

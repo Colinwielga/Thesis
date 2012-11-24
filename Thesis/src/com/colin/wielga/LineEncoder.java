@@ -337,7 +337,7 @@ public class LineEncoder {
 					result.add(";");
 					i++;
 					lastcut = i;
-				} else // TODO what do ; do?
+				} else // TODO what does ; do?
 				if (line.charAt(i) == '=') {
 					if (!line.substring(lastcut, i).equals("")) {
 						result.add(line.substring(lastcut, i));
@@ -418,11 +418,11 @@ public class LineEncoder {
 
 					String[] split = divide(strLine);
 					if (split.length > 0) {
-						// System.out.println("");
-						// for (int i = 0; i < split.length; i++) {
-						// System.out.print(split[i] + ",");
-						// }
-						// System.out.println("");
+//						 System.out.println("");
+//						 for (int i = 0; i < split.length; i++) {
+//						 System.out.print(split[i] + ",");
+//						 }
+//						 System.out.println(split.length);
 						// System.out.print("found: ");
 						// DIM
 						if (split[0].equals("dim")) {
@@ -782,9 +782,9 @@ public class LineEncoder {
 						}
 						// FORMLEVEL
 						// END
-						if (split[0] == "end" && split.length == 1) {
+						if (split[0].equals("end") && split.length == 1) {
 							holder.add(END);
-							// System.out.print(" " + PUBLICOTHER);
+							//System.out.print(" " + END);
 						}
 					}
 				}

@@ -1,7 +1,8 @@
 new TODO
-	write getPieces in cmp is like startwork
-	
-
+	-write getPieces in cmp is like startwork (?? what does this mean ??)
+	-todo read up about things
+	- we are prolly not interested in straights that cross end sub or start sub
+	-  
 
 TODO:
 	move file so refs are inside this project
@@ -15,7 +16,11 @@ TODO:
 	looks like vars can be defined in different orders so we need to look over it twice
 	$"Form1.frx" this happened once i need to fix that
 	it seems files can referance other files in their folder.. need to deal with
-	 
+	 	
+approches	
+	function call map
+	varaible following
+	cmp X {encode,lineencode}  
 	
 thought -> encoding needs to be in a file that we read-in and then edit with anything new we find
 	blah = casdf	-> var
@@ -64,11 +69,18 @@ from talking to dad
 - look at what follows what
 - do research
 - use blocks
+- use Cmp(A,B) and Cmp(B,C) to know something about Cmp(A,C)
 
 NOTES
+	i think i want cmp to be a measure
+		cmp(A,B) >= 0
+		cmp(A,B) + cmp(B,C) > cmp(A,C) 
 	i just remove the # from Line Input # , Input # , Write # , Print # Close #.
 	atm Line Input is one commmand but we also have commands Line and Input this is dangerous
 	so it there is a roll of things not in the other they should count minus... maybe that make putting dead code in kill us
+	does the order of the straights matter? for example if both file have S1 then S2 then S3 is that worth anything?
+	two straights that would add to make a larger straight can not co-exist becuase their combo is always better
 
 quick cmp
-	- just take the biggest string and then the next biggest.. and so on	
+	- just take the biggest string and then the next biggest.. and so on
+	- need to get some data on if this is accerate or not	
