@@ -23,6 +23,21 @@ public class Runner {
 		LineEncoder.load("lineencoding1");
 		Scanner s = new Scanner(System.in);
 		
+//		Cmp.fastCmp("okovevmvsolmhlglecmvnjfavq", "stfsgsckeonvlfxjewmltovoaj");
+		
+		
+		char[] letters = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
+		for (int i=0;i<1000;i= i+10){
+			Long l = SpeedTest.test(SpeedTest.FASTCMP, i, letters, 300);
+//			System.out.println();
+		//	if (i % 10 ==0){
+			System.out.println("test: "+i+ " time: " + l  + "  |");
+		//	}
+			
+		}
+		
+		//System.out.println("" + Cmp.fastCmp("aabacabdabsdbadsbbasbbdaabc","aabdsfbadbsbasbfbabsbsdbcbcabc"));
+		
 //		String[] temp = LineEncoder.encode("VBcode\\original\\VBProjectsFall03\\aahumann\\frmPick.frm");
 //		for (int i =0;i<temp.length;i++){
 //			System.out.println(temp[i]);
