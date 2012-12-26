@@ -4,6 +4,7 @@ import java.awt.List;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -13,7 +14,9 @@ public class Runner {
 	public static boolean debug = false;
 	public static ArrayList<Integer> lens = new ArrayList<Integer>();
 	public static ArrayList<String> result = new ArrayList<String>();
-	public static HashMap<String,Integer> counts = new HashMap<String,Integer>();
+	public static ArrayList<String> cheaters = new ArrayList<String>();
+	public static HashMap<String, Integer> counts = new HashMap<String, Integer>();
+	public static Runtime runTime;
 
 	/**
 	 * @param args
@@ -22,29 +25,41 @@ public class Runner {
 		Counter.load("C:\\Users\\Colin\\Documents\\School\\Thesis 2\\encoding1.txt");
 		LineEncoder.load("lineencoding1");
 		Scanner s = new Scanner(System.in);
+		runTime = Runtime.getRuntime();
 		
-//		Cmp.fastCmp("okovevmvsolmhlglecmvnjfavq", "stfsgsckeonvlfxjewmltovoaj");
-		
-		
-		char[] letters = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
-		for (int i=0;i<1000;i= i+10){
-			Long l = SpeedTest.test(SpeedTest.FASTCMP, i, letters, 300);
-//			System.out.println();
-		//	if (i % 10 ==0){
-			System.out.println("test: "+i+ " time: " + l  + "  |");
-		//	}
+		allEncodeLine("C://Users//Colin//Documents//School//Thesis 2//VBCode//original");
+		System.out.println("encoded all "+result.size()+" originals");
+		cheatersEncodeLine("C://Users//Colin//Documents//School//Thesis 2//VBCode//plaigarized");
+		System.out.println("encoded all "+cheaters.size()+" plaigarized");
+		doit("run2.txt");
 			
-		}
-		
-		//System.out.println("" + Cmp.fastCmp("aabacabdabsdbadsbbasbbdaabc","aabdsfbadbsbasbfbabsbsdbcbcabc"));
-		
-//		String[] temp = LineEncoder.encode("VBcode\\original\\VBProjectsFall03\\aahumann\\frmPick.frm");
-//		for (int i =0;i<temp.length;i++){
-//			System.out.println(temp[i]);
-//		}
-		
-//		allEncodeLine("C://Users//Colin//Documents//School//Thesis 2//VBCode//original");
-//		cmpall();
+
+		//System.out.println(Cmp.fastCmp("aabcabd", "baacada"));
+		// s.nextInt();
+		//System.out.println(java.lang.Runtime.getRuntime().maxMemory());
+		//
+		// char[] letters = {'a','b','c','d','e','f','g','h'};
+		// //,'g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'
+		// for (int i=0;i<2000;i= i+2){
+		// Long l = SpeedTest.test(SpeedTest.FASTCMP, i, letters, 1);
+		// // System.out.println();
+		// // if (i % 10 ==0){
+		// System.out.println(l);// + " " + runTime.freeMemory()
+		// // }
+		//
+		// }
+
+		// System.out.println("" +
+		// Cmp.fastCmp("aabacabdabsdbadsbbasbbdaabc","aabdsfbadbsbasbfbabsbsdbcbcabc"));
+
+		// String[] temp =
+		// LineEncoder.encode("VBcode\\original\\VBProjectsFall03\\aahumann\\frmPick.frm");
+		// for (int i =0;i<temp.length;i++){
+		// System.out.println(temp[i]);
+		// }
+
+		// allEncodeLine("C://Users//Colin//Documents//School//Thesis 2//VBCode//original");
+		// cmpall();
 		// allPerceeds("C://Users//Colin//Documents//School//Thesis 2//VBCode//original","i",1);
 		// Counter.printSet();
 
@@ -54,7 +69,9 @@ public class Runner {
 		// System.out.print(temp[i] +",");
 		// }
 
-		//System.out.println("" + Cmp.qc_rapper("acasdqaseasdqqafeadfawadasdveacasxczxcvdasdfeasdveghyagasdfvcrascvxawcefradvdacxvascvcxavzxcvawasdaqsasdfadasdfasdwdedasasdadce", "eadasdffasqasdasfrdedwsadsfascasdcadsfaedcvascqacasdvaeacvadsvasdveadfeadsfasdfasdsdasdfbhbhbfasdfedssqaswdesdassdwwwsdasdwfedasesfwaeqdswwasadcada"));
+		// System.out.println("" +
+		// Cmp.qc_rapper("acasdqaseasdqqafeadfawadasdveacasxczxcvdasdfeasdveghyagasdfvcrascvxawcefradvdacxvascvcxavzxcvawasdaqsasdfadasdfasdwdedasasdadce",
+		// "eadasdffasqasdasfrdedwsadsfascasdcadsfaedcvascqacasdvaeacvadsvasdveadfeadsfasdfasdsdasdfbhbhbfasdfedssqaswdesdassdwwwsdasdwfedasesfwaeqdswwasadcada"));
 
 		// countEncoded("C://Users//Colin//Documents//School//Thesis 2//VBCode//original//VBProjectsFall03//CsciStudent");
 
@@ -209,12 +226,39 @@ public class Runner {
 				allEncodeLine(file + "//" + filename);
 			}
 		}
-//		result = new String[holder.size()];
-//		for (int i = 0; i < holder.size(); i++) {
-//			result[i] = holder.get(i);
-//		}
-//		System.out.println("i read " + result.length + " files");
-//		return blah;
+		// result = new String[holder.size()];
+		// for (int i = 0; i < holder.size(); i++) {
+		// result[i] = holder.get(i);
+		// }
+		// System.out.println("i read " + result.length + " files");
+		// return blah;
+	}
+
+	private static void cheatersEncodeLine(String file) {
+		String[] filenames = new File(file).list();
+		for (String filename : filenames) {
+			if (debug) {
+				System.out.println(file + "//" + filename);
+			}
+			File f = new File(file + "//" + filename);
+			if (f.isFile()) {
+				cheaters.add(LineEncoder.tostr(LineEncoder.encode(file + "//"
+						+ filename)));
+				// System.out.println(temp);
+				// for (int i=0;i<temp.length;i++){
+				// System.out.print(temp[i] +",");
+				// }
+				// System.out.println();
+			} else if (f.isDirectory()) {
+				cheatersEncodeLine(file + "//" + filename);
+			}
+		}
+		// result = new String[holder.size()];
+		// for (int i = 0; i < holder.size(); i++) {
+		// result[i] = holder.get(i);
+		// }
+		// System.out.println("i read " + result.length + " files");
+		// return blah;
 	}
 
 	private static void llerapper(String file) {
@@ -365,7 +409,7 @@ public class Runner {
 				if (i != j) {
 					scores[i][j] = Cmp.cmp(result.get(i), result.get(i));
 				} else {
-					scores[i][j] =result.get(i).length() * 2 - 1;
+					scores[i][j] = result.get(i).length() * 2 - 1;
 				}
 				System.out.println(result.size() * i + j + " of "
 						+ result.size() * result.size());
@@ -388,15 +432,36 @@ public class Runner {
 		}
 		return scores;
 	}
-	
-	public static int countEvents(String in){
-		if (counts.containsKey(in)){
+
+	private static void doit(String fileName) {
+		FileWriter fstream;
+		int temp;
+		try {
+			fstream = new FileWriter(fileName);
+			BufferedWriter out = new BufferedWriter(fstream);
+			for (int i = 0; i < result.size(); i++) {
+				for (int j = 0; j < cheaters.size(); j++) {
+					temp = Cmp.fastCmp(result.get(i), cheaters.get(j));
+					//out.write(temp +";");
+					System.out.println(temp+"");
+				}
+				//out.newLine();
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	public static int countEvents(String in) {
+		if (counts.containsKey(in)) {
 			return counts.get(in);
 		}
-		int c=0;
-		for (int i=0;i<result.size();i++){
-			for (int j=0;j<result.get(i).length() - in.length();j++){
-				if (result.get(i).substring(j,j+in.length()).equals(in)){
+		int c = 0;
+		for (int i = 0; i < result.size(); i++) {
+			for (int j = 0; j < result.get(i).length() - in.length(); j++) {
+				if (result.get(i).substring(j, j + in.length()).equals(in)) {
 					c++;
 				}
 			}

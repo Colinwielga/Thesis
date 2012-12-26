@@ -113,7 +113,7 @@ public class Straight {
 	public int value(){
 		int result =0;
 		for (int i=0;i<len.length;i++){
-			result+= len[i]*2 - 1;
+			result+= Cmp.scale(len[i]);
 		}
 		return result;
 	}
@@ -204,5 +204,16 @@ public class Straight {
 			}
 		}
 		return true;
+	}
+
+	public int pointIn(int x, int y) {
+		for (int i =0;i<xstart.length;i++){
+			for (int j= 0;j<len[i];j++){
+				if (xstart[i]+j == x && ystart[i]+j == y){
+					return 1;
+				}
+			}
+		}
+		return 0;
 	}
 }

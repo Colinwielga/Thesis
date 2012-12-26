@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Cmp {
+	
+	public static StraightCoexistThing coexist= new StraightCoexistThing();
 
 	public static void cmpProject(String[] a, String[] b) {
 
@@ -19,7 +21,7 @@ public class Cmp {
 		}
 		// printbig(big);
 		System.out.println("");
-		return (qc(big));
+		return (qc(big,a,b));
 	}
 
 	public static int fastCmp(String a, String b) {
@@ -33,7 +35,7 @@ public class Cmp {
 		}
 		//printbig(big);
 		
-		ArrayList<Straight> straights = findStraights(big); // i wrote this
+		ArrayList<Straight> straights = findStraights(big,a,b); // i wrote this
 															// withn my nose
 		//System.out.println(""+straights.size());
 //		for (int i =0 ; i<straights.size();i++){
@@ -50,7 +52,8 @@ public class Cmp {
 			Straight[] straightstemp = new Straight[straights.size()];
 			straights.toArray(straightstemp);
 			//System.out.println("looking at a new Straight");
-			BestResult br = best(null, straightstemp, temp, straights.get(0));
+			coexist.reset();
+			BestResult br = best(straightstemp, temp, straights.get(0));
 			// update winner
 			//System.out.println("and the winner is... (HOV)");
 			//br.winner.print();
@@ -71,6 +74,12 @@ public class Cmp {
 				target = straights.get(0);
 			}
 		}
+//		for (int i =0;i<a.length();i++){
+//			for (int j=0;j<b.length();j++){
+//				System.out.print(winner.pointIn(i,j));
+//			}
+//			System.out.println();
+//		}
 		return winner.value();
 	}
 
@@ -98,7 +107,7 @@ public class Cmp {
 		return ret;
 	}
 
-	public static ArrayList<Straight> findStraights(boolean[][] in) {
+	public static ArrayList<Straight> findStraights(boolean[][] in,String a,String b) {
 		// find all the Straights sorted by lenght
 		ArrayList<Straight> straights = new ArrayList<Straight>();
 		for (int i = 0; i < in.length; i++) {
@@ -117,8 +126,11 @@ public class Cmp {
 							}
 						}
 						straights.add(l, new Straight(i, j, i + k, j + k, k));
-						if (i + k < in.length && j + k < in.length) {
-							if (in[i + k][j + k]) {
+						if (i + k < in.length && j + k < in[0].length) {
+							if (in[i + k][j + k] && !(""+a.charAt(i+k)).equals(LineEncoder.hm.get(LineEncoder.STARTSUB))) {
+								if ((""+a.charAt(i+k)).equals(LineEncoder.hm.get(LineEncoder.ENDSUB))){
+									go = false;
+								}
 								k++;
 							} else {
 								go = false;
@@ -133,9 +145,9 @@ public class Cmp {
 		return straights;
 	}
 
-	public static int qc(boolean[][] in) {
+	public static int qc(boolean[][] in, String a, String b) {
 		// find all the Straights
-		ArrayList<Straight> straights = findStraights(in);
+		ArrayList<Straight> straights = findStraights(in,a,b);
 		// pull out all the biggest one ...if two are tied and overlap take the
 		// one we found first
 		Straight currentStraight;
@@ -174,16 +186,13 @@ public class Cmp {
 
 	// TODO i am writing an algorithm that check to see if we know a striaght
 	// larger than any set of striaghts in its cross
-	public static BestResult best(StraightCoexistMat coexist, Straight[] all,
+	public static BestResult best(Straight[] all,
 			Straight[] s, Straight biggie) {
 //		System.out.println("biggie is ");
 //		biggie.print();
 //		System.out.println("is s empty " + s.length);
 		int tobeat = biggie.value;
 		// first we update the co-exist mat
-		if (coexist == null) {
-			coexist = new StraightCoexistMat(s.length);
-		}
 		int at = 0;
 		ArrayList<Integer> shrink = new ArrayList<Integer>();
 
@@ -319,7 +328,7 @@ public class Cmp {
 				// does this break anything?
 				Straight[] yolo = intersect(c1, s); // i believe this should
 													// just be the same as c1
-				BestResult feedback = best(coexist, all, yolo, tie.get(i));
+				BestResult feedback = best( all, yolo, tie.get(i));
 				if (feedback.foundone) {
 					return new BestResult(feedback.winner, yolo);
 				} else {
@@ -669,6 +678,7 @@ public class Cmp {
 		if (count == 0) {
 			return 0;
 		}
-		return (2 * count - 1);
+		//return (2 * count - 1);
+		return count*count;
 	}
 }

@@ -7,14 +7,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class StraightCoexistMat {
+	private static final int GROWBY = 1000;
+	private static final int STARTMAX = 10000;
 	boolean[][] mat;
 	// HashMap<Integer, HashMap<Integer, Boolean>> mat = new HashMap<Integer,
 	// HashMap<Integer, Boolean>>();
 	ArrayList<Straight> straights = new ArrayList<Straight>();
-	public int doneUpTo = 0;
+	public int doneUpTo;
+	int currentmax= STARTMAX;;
 
-	public StraightCoexistMat(int size) {
-		mat = new boolean[10000][10000];
+	public StraightCoexistMat() {
+		mat = new boolean[STARTMAX][STARTMAX];
 	}
 
 	public boolean get(int y, int x) {
@@ -48,6 +51,18 @@ public class StraightCoexistMat {
 
 	public void insert(Straight s) {
 		straights.add(s);
+		if (straights.size() >= currentmax){
+			boolean[][] temp = new boolean[currentmax + GROWBY][currentmax + GROWBY]; 
+			for (int i=0;i<currentmax;i++){
+				for (int j =0; j<currentmax;j++){
+					temp[i][j] = mat[i][j];
+				}
+			}
+			currentmax = currentmax + GROWBY;
+			mat = temp;
+			System.out.println("size is " + currentmax);
+		}
+		
 	}
 
 	public void print() {
@@ -57,6 +72,16 @@ public class StraightCoexistMat {
 			}
 			System.out.println();
 		}
+	}
+
+	public void reset() {
+		for (int i=0;i<straights.size();i++){
+			for (int j =0; j<straights.size();j++){
+				mat[i][j] = false;
+			}
+		}
+		straights = new ArrayList<Straight>();
+		doneUpTo =0;
 	}
 }
 
