@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class LineEncoder {
@@ -55,7 +56,7 @@ public class LineEncoder {
 	public static String ENDUNTIL;
 	public static Scanner s = new Scanner(System.in);
 	public static String OTHER;
-	public static HashMap<String, String> hm = new HashMap<String, String>();
+	public static Map<String,String> hm = new  HashMap<String,String>();
 	private static String[] pullfrom ={"a","b","c","d","e","f","g","h","i","j","k","l","m","o","p","q","r","s","t","u","v","w","x","y","z","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};
 	private static int at=0;
 

@@ -22,8 +22,11 @@ public class Runner {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		
 		Counter.load("C:\\Users\\Colin\\Documents\\School\\Thesis 2\\encoding1.txt");
 		LineEncoder.load("lineencoding1");
+		
+		
 		Scanner s = new Scanner(System.in);
 		runTime = Runtime.getRuntime();
 		
@@ -31,7 +34,10 @@ public class Runner {
 		System.out.println("encoded all "+result.size()+" originals");
 		cheatersEncodeLine("C://Users//Colin//Documents//School//Thesis 2//VBCode//plaigarized");
 		System.out.println("encoded all "+cheaters.size()+" plaigarized");
-		doit("run2.txt");
+		Alingment.loadvaluemat();
+		Alingment.localAl("acdcadsa", "dacdea");
+		doit("run3.txt");
+		
 			
 
 		//System.out.println(Cmp.fastCmp("aabcabd", "baacada"));
@@ -441,12 +447,13 @@ public class Runner {
 			BufferedWriter out = new BufferedWriter(fstream);
 			for (int i = 0; i < result.size(); i++) {
 				for (int j = 0; j < cheaters.size(); j++) {
-					temp = Cmp.fastCmp(result.get(i), cheaters.get(j));
-					//out.write(temp +";");
+					temp = Cmp.qc_rapper(result.get(i), cheaters.get(j));
+					out.write(temp +";");
 					System.out.println(temp+"");
 				}
-				//out.newLine();
+				out.newLine();
 			}
+			out.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

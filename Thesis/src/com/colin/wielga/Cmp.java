@@ -5,7 +5,7 @@ import java.util.Arrays;
 
 public class Cmp {
 	
-	public static StraightCoexistThing coexist= new StraightCoexistThing();
+	public static StraightCoexistArray coexist= new StraightCoexistArray();
 
 	public static void cmpProject(String[] a, String[] b) {
 
@@ -20,7 +20,7 @@ public class Cmp {
 			}
 		}
 		// printbig(big);
-		System.out.println("");
+//		System.out.println("");
 		return (qc(big,a,b));
 	}
 
@@ -153,12 +153,15 @@ public class Cmp {
 		Straight currentStraight;
 		ArrayList<Straight> result = new ArrayList<Straight>();
 		while (straights.size() != 0) {
+//			System.out.println(straights.size());
 			currentStraight = straights.get(0);
 			straights.remove(0);
 			// ArrayList<Straight> lookingat = new ArrayList<Straight>();
 			for (int i = 0; i < straights.size();) {
 				if (!currentStraight.coexist(straights.get(i))) {
 					straights.remove(i);
+				}else{
+					i++;
 				}
 			}
 			result.add(currentStraight);

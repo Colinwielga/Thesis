@@ -76,6 +76,10 @@ from talking to dad
 - use blocks
 - use Cmp(A,B) and Cmp(B,C) to know something about Cmp(A,C)
 
+OTHER
+	the problem with sorting blocks by len is we could get it wrong if 2+ blocks are the same length
+		we could somehow alphibatize them
+
 NOTES
 	i think i want cmp to be a measure
 		cmp(A,B) >= 0
