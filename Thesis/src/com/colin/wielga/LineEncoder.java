@@ -413,6 +413,8 @@ public class LineEncoder {
 					// System.out.println("press enter");
 					// s.nextLine();
 					strLine = strLine.trim().toLowerCase();
+					
+					//System.out.println(strLine);
 					// TODO check to see if we need to do that " _" thing also
 					// that
 					// ; (:?) thing...
@@ -634,28 +636,21 @@ public class LineEncoder {
 								int loops = 0;
 								int back = 1;
 								while (!(loops == -1) && back <= holder.size()) {
-									if (holder.get(holder.size() - back)
-											.equals(STARTDO)
+									if (STARTDO.equals(holder.get(holder.size() - back))
 											// || holder.get(holder.size() -
 											// back).equals(
 											// STARTFOR)
-											|| holder.get(holder.size() - back)
-													.equals(STARTUNTIL)
-											|| holder.get(holder.size() - back)
-													.equals(STARTWHILE)
-											|| holder.get(holder.size() - back)
-													.equals(STARTUNKNOWNDO)) {
+											|| STARTUNTIL.equals(holder.get(holder.size() - back))
+											|| STARTWHILE.equals(holder.get(holder.size() - back))
+											|| STARTUNKNOWNDO.equals(holder.get(holder.size() - back))) {
 										loops--;
 									}
-									if (holder.get(holder.size() - back)
-											.equals(ENDDO)
-											|| holder.get(holder.size() - back)
-													.equals(ENDUNTIL)
+									if (ENDDO.equals(holder.get(holder.size() - back))
+											|| ENDUNTIL.equals(holder.get(holder.size() - back))
 											// || holder.get(holder.size() -
 											// back).equals(
 											// ENDFOR)
-											|| holder.get(holder.size() - back)
-													.equals(ENDWHILE)) {
+											|| ENDWHILE.equals(holder.get(holder.size() - back))) {
 										loops++;
 									}
 									back++;

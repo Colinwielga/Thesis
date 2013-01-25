@@ -1,5 +1,7 @@
 package com.colin.wielga;
 
+import java.util.ArrayList;
+
 public class Straight {
 	public int[] ystart;
 	public int[] xstart;
@@ -7,6 +9,7 @@ public class Straight {
 	public int[] xend;
 	public int[] len;
 	public int value;
+	public ArrayList<Straight> killed = new ArrayList<Straight>();
 
 	public Straight(int[] ystart, int[] xstart, int[] yend, int[] xend,
 			int[] len) {
@@ -96,17 +99,18 @@ public class Straight {
 			}
 		}
 		// check to see if every sequence in one could be attached to a sequence in another 
-		for (int i = 0; i < s.len.length; i++) {
-			boolean ret = false;
-			for (int j = 0; !ret && j < len.length; j++) {
-				if ((s.xstart[i] == xend[j] && s.ystart[i] == yend[j]) || (s.xend[i] == xstart[j] && s.yend[i] == ystart[j])){
-					ret =true;
-				}				
-			}
-			if (ret){
-				return false;
-			}
-		}
+		//  TODO this is an interesting idea but does not work with splitting on end and start stub...
+	//		for (int i = 0; i < s.len.length; i++) {
+//			boolean ret = false;
+//			for (int j = 0; !ret && j < len.length; j++) {
+//				if ((s.xstart[i] == xend[j] && s.ystart[i] == yend[j]) || (s.xend[i] == xstart[j] && s.yend[i] == ystart[j])){
+//					ret =true;
+//				}				
+//			}
+//			if (ret){
+//				return false;
+//			}
+//		}
 		return true;
 	}
 

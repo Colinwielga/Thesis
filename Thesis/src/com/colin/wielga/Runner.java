@@ -1,8 +1,11 @@
 package com.colin.wielga;
 
 import java.awt.List;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,6 +14,7 @@ import java.util.Scanner;
 
 public class Runner {
 
+	private static final String DIVIDER = "..........";
 	public static boolean debug = false;
 	public static ArrayList<Integer> lens = new ArrayList<Integer>();
 	public static ArrayList<String> result = new ArrayList<String>();
@@ -18,31 +22,54 @@ public class Runner {
 	public static HashMap<String, Integer> counts = new HashMap<String, Integer>();
 	public static Runtime runTime;
 
+	// for multi threading
+	public static int[][] open;
+	public static final int TOWRITE = 2;
+	public static final int DONE = 1;
+	public static final int WAITING = 0;
+	public static final int WORKING = 3;
+	public static double[][] mat;
+	private static boolean canWrite = true;
+	public static ArrayList<Gather> gathers = new ArrayList<Gather>();
+	public static ArrayList<String> nameOrig= new ArrayList<String>();
+	public static ArrayList<String> namePlag = new ArrayList<String>();
+
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		
-		Counter.load("C:\\Users\\Colin\\Documents\\School\\Thesis 2\\encoding1.txt");
+		System.out.println("loading encoding system");
 		LineEncoder.load("lineencoding1");
-		
-		
-		Scanner s = new Scanner(System.in);
-		runTime = Runtime.getRuntime();
-		
-		allEncodeLine("C://Users//Colin//Documents//School//Thesis 2//VBCode//original");
-		System.out.println("encoded all "+result.size()+" originals");
-		cheatersEncodeLine("C://Users//Colin//Documents//School//Thesis 2//VBCode//plaigarized");
-		System.out.println("encoded all "+cheaters.size()+" plaigarized");
-		Alingment.loadvaluemat();
-		Alingment.localAl("acdcadsa", "dacdea");
-		doit("run3.txt");
-		
-			
 
-		//System.out.println(Cmp.fastCmp("aabcabd", "baacada"));
+		// System.out.println("qc3 " + Cmp.qc3("ascaaasdradsf","vasdfasdfasd"));
+		// System.out.println("qc " +
+		// Cmp.qc_rapper("ascaaasdradsf","vasdfasdfasd"));
+		startWorking("superPooper.txt", "superPooper.csv");
+		keepWorking("superPooper.txt", "superPooper.csv");
+		// System.out.println("done");
+		// System.out.println("starting");
+		// Cmp.qc_rapper("kllk",
+		// "aaaaakmmmmkmkkkbkddqadtfbgifbpqaraaaaaaaagfbfbmksaoddaqacdaetcgefbmksaoddaqacdaetcgefbmksaoddaqacdaetcgefbddqaqacaaaaaaaaaaaaaaaettqadtfbddqaqacaaaaaaaaaaaaaaaettqadtfbddqaqacaaaaaaaaaaaaaaaettqadtfbaaf");
+		// System.out.println("done");
+
+		// Counter.load("C:\\Users\\Colin\\Documents\\School\\Thesis 2\\encoding1.txt");
+		//
+		//
+
+		// runTime = Runtime.getRuntime();
+		//
+		// allEncodeLine("C://Users//Colin//Documents//School//Thesis 2//VBCode//original");
+		// System.out.println("encoded all " + result.size() + " originals");
+		// cheatersEncodeLine("C://Users//Colin//Documents//School//Thesis 2//VBCode//plaigarized");
+		// System.out.println("encoded all " + cheaters.size() +
+		// " plaigarized");
+		// Alingment.loadvaluemat();
+		// Alingment.localAl("acdcadsa", "dacdea");
+		// doit("run3.txt");
+
+		// System.out.println(Cmp.fastCmp("aabcabd", "baacada"));
 		// s.nextInt();
-		//System.out.println(java.lang.Runtime.getRuntime().maxMemory());
+		// System.out.println(java.lang.Runtime.getRuntime().maxMemory());
 		//
 		// char[] letters = {'a','b','c','d','e','f','g','h'};
 		// //,'g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'
@@ -81,8 +108,12 @@ public class Runner {
 
 		// countEncoded("C://Users//Colin//Documents//School//Thesis 2//VBCode//original//VBProjectsFall03//CsciStudent");
 
+	}
+
+	public void getin() {
 		while (true) {
 			System.out.println("ready for input");
+			Scanner s = new Scanner(System.in);
 			if (s.hasNext()) {
 				String line = s.nextLine();
 				if (line.startsWith("c1")) {
@@ -147,7 +178,6 @@ public class Runner {
 
 			}
 		}
-
 	}
 
 	private static void allcountcontent(String string) {
@@ -448,8 +478,8 @@ public class Runner {
 			for (int i = 0; i < result.size(); i++) {
 				for (int j = 0; j < cheaters.size(); j++) {
 					temp = Cmp.qc_rapper(result.get(i), cheaters.get(j));
-					out.write(temp +";");
-					System.out.println(temp+"");
+					out.write(temp + ";");
+					System.out.println(temp + "");
 				}
 				out.newLine();
 			}
@@ -476,4 +506,246 @@ public class Runner {
 		counts.put(in, c);
 		return c;
 	}
+
+	public static void startWorking(String meta, String data) {
+		// get list of the files
+		ArrayList resultsToWrite = startWorkingHelper(
+				"C://Users//Colin//Documents//School//Thesis 2//VBCode//original",
+				new ArrayList());
+		resultsToWrite.addAll(startWorkingHelper(
+				"C://Users//Colin//Documents//School//Thesis 2//VBCode//plaigarized//orig",
+				new ArrayList()));
+		ArrayList cheaterToWrite = startWorkingHelper(
+				"C://Users//Colin//Documents//School//Thesis 2//VBCode//plaigarized//plag",
+				new ArrayList());
+		BufferedWriter bufferWritter;
+		// write it to file
+		try {
+			bufferWritter = new BufferedWriter(new FileWriter(meta));
+			// write the results
+			for (int i = 0; i < resultsToWrite.size(); i++) {
+				bufferWritter.write(resultsToWrite.get(i) + "");
+				bufferWritter.newLine();
+			}
+			// write the DIVIDER
+			bufferWritter.write(DIVIDER);
+			bufferWritter.newLine();
+			// write the cheaters
+			for (int i = 0; i < cheaterToWrite.size(); i++) {
+				bufferWritter.write(cheaterToWrite.get(i) + "");
+				bufferWritter.newLine();
+			}
+			bufferWritter.close();
+
+			// now create the data file
+			bufferWritter = new BufferedWriter(new FileWriter(data, true));
+			bufferWritter.write("");
+			bufferWritter.close();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+			int chrash = 1 / 0;
+		}
+	}
+
+	private static ArrayList startWorkingHelper(String file, ArrayList toReturn) {
+		String[] filenames = new File(file).list();
+		for (String filename : filenames) {
+			if (debug) {
+				System.out.println(file + "//" + filename);
+			}
+			File f = new File(file + "//" + filename);
+			if (f.isFile()) {
+				toReturn.add(file + "//" + filename);
+			} else if (f.isDirectory()) {
+				toReturn = startWorkingHelper(file + "//" + filename, toReturn);
+			}
+		}
+		return toReturn;
+	}
+
+	public static void keepWorking(String meta, String data) {
+		try {
+			String read;
+
+			// first we are going to load all the files
+			BufferedReader in = new BufferedReader(new FileReader(meta));
+			boolean go = true;
+
+			System.out.println("encoding files");
+
+			while ((read = in.readLine()) != null && go) {
+				if (!DIVIDER.equals(read)) {
+					// System.out.println(read);
+					
+					nameOrig.add(read);
+					
+					result.add(LineEncoder.tostr(LineEncoder.encode(read)));
+				//	System.out.println(Analysis.getAdressEnd(read));
+				} else {
+					go = false;
+				}
+			}
+			
+			//System.out.println(DIVIDER);
+
+			while ((read = in.readLine()) != null) {
+				// System.out.println(read);
+				namePlag.add(read);
+				cheaters.add(LineEncoder.tostr(LineEncoder.encode(read)));
+				//System.out.println(Analysis.getAdressEnd(read));
+			}
+			
+			//int a=1;
+			//while (1==a){
+				//do nothing
+			//}
+
+			// find where you are
+			in = new BufferedReader(new FileReader(data));
+			int resultsCount = 0;
+			int cheatersCount = 0;
+			while ((read = in.readLine()) != null) {
+				resultsCount = count(',', read);
+				cheatersCount++;
+				// System.out.println(cheatersCount);
+			}
+
+			if (resultsCount > 0) {
+				resultsCount--;
+			}
+
+			System.out.println("calculating where to start");
+
+			// System.out.println("got here");
+
+			// resultsCount =1162;
+			// cheatersCount = 24;
+			open = new int[cheaters.size()][result.size()];
+			mat = new double[cheaters.size()][result.size()];
+
+			for (int i = 0; i < open.length; i++) {
+				for (int j = 0; j < open[i].length; j++) {
+					if (i < cheatersCount) {
+						open[i][j] = DONE;
+					} else if (i == cheatersCount && j < resultsCount) {
+						open[i][j] = DONE;
+					} else {
+						open[i][j] = WAITING;
+					}
+				}
+			}
+
+			// System.out.println("we are at "+ resultsCount+ "/"+ result.size()
+			// +" result");
+			// System.out.println("we are at "+ cheatersCount+ "/"+
+			// cheaters.size() +" cheaters");
+
+			System.out.println("starting");
+
+			// start comparing
+			gathers.add(new Gather("postOp", data));
+			gathers.add(new Gather("yo", data));
+			gathers.add(new Gather("yim", data));
+			gathers.add(new Gather("yuck", data));
+
+			// for(int i=cheatersCount;i<cheaters.size();i++){
+			// for (int j = resultsCount;j<result.size();j++){
+			//
+			// System.out.println("we are at "+ j + "/"+ result.size()
+			// +" result "+ result.get(j));
+			// System.out.println("we are at "+ i + "/"+ cheaters.size()
+			// +" cheaters "+cheaters.get(i));
+			//
+			//
+			// //cmp
+			// String toright = Cmp.qc3(cheaters.get(i), result.get(j))+",";
+			//
+			// //save your work
+			// BufferedWriter bufferWritter = new BufferedWriter(new
+			// FileWriter(data,true));
+			// bufferWritter.write(toright);
+			// bufferWritter.close();
+			//
+			// }
+			// // new line
+			// BufferedWriter bufferWritter = new BufferedWriter(new
+			// FileWriter(data,true));
+			// bufferWritter.newLine();
+			// bufferWritter.close();
+			// //this is ugly
+			// resultsCount = 0;
+			// }
+			// if we finish update the status file;
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			int chrash = 1 / 0;
+		}
+
+	}
+
+	private static int count(char c, String read) {
+		int result = 0;
+		for (int i = 0; i < read.length(); i++) {
+			if (read.charAt(i) == c) {
+				result++;
+			}
+		}
+		return result;
+	}
+
+	public static void TryWrite(String data) {
+		if (canWrite) {
+			canWrite = false;
+			boolean go = true;
+			for (int i = 0; go && i < open.length; i++) {
+				for (int j = 0; go && j < open[i].length; j++) {
+					if (open[i][j] == WORKING || open[i][j] == WAITING) {
+						go = false;
+					} else if (open[i][j] == TOWRITE) {
+						BufferedWriter bufferWritter;
+						try {
+							bufferWritter = new BufferedWriter(new FileWriter(
+									data, true));
+							bufferWritter.write(mat[i][j] + ",");
+							bufferWritter.close();
+
+							if (j == open[i].length - 1) {
+								bufferWritter = new BufferedWriter(
+										new FileWriter(data, true));
+								bufferWritter.newLine();
+								bufferWritter.close();
+							}
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
+				}
+			}
+			canWrite  = true;
+		}
+	}
+	
+	public static void writeAll(double[][] mat2 ,String data){
+		String nextWrite;
+		try {
+			BufferedWriter bufferWritter = new BufferedWriter(new FileWriter(data, true));
+
+			for (int i=0;i<mat2.length;i++){
+				nextWrite = "";
+				for (int j =0;j<mat2[i].length;j++){
+					nextWrite= nextWrite + mat2[i][j] +",";
+				}
+				bufferWritter.write(nextWrite);
+				bufferWritter.newLine();
+			}
+			bufferWritter.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 }
