@@ -29,6 +29,7 @@ public class Runner {
 	public static final int WAITING = 0;
 	public static final int WORKING = 3;
 	public static double[][] mat;
+	public static CmpResult[][] rawScores;
 	private static boolean canWrite = true;
 	public static ArrayList<Gather> gathers = new ArrayList<Gather>();
 	public static ArrayList<String> nameOrig= new ArrayList<String>();
@@ -44,8 +45,8 @@ public class Runner {
 		// System.out.println("qc3 " + Cmp.qc3("ascaaasdradsf","vasdfasdfasd"));
 		// System.out.println("qc " +
 		// Cmp.qc_rapper("ascaaasdradsf","vasdfasdfasd"));
-		startWorking("superPooper.txt", "superPooper.csv");
-		keepWorking("superPooper.txt", "superPooper.csv");
+		startWorking("git.txt", "git.csv");
+		keepWorking("git.txt", "git.csv");
 		// System.out.println("done");
 		// System.out.println("starting");
 		// Cmp.qc_rapper("kllk",
@@ -580,7 +581,7 @@ public class Runner {
 					
 					nameOrig.add(read);
 					
-					result.add(LineEncoder.tostr(LineEncoder.encode(read)));
+					result.add(LineEncoder.arange(LineEncoder.tostr(LineEncoder.encode(read))));
 				//	System.out.println(Analysis.getAdressEnd(read));
 				} else {
 					go = false;
@@ -592,7 +593,7 @@ public class Runner {
 			while ((read = in.readLine()) != null) {
 				// System.out.println(read);
 				namePlag.add(read);
-				cheaters.add(LineEncoder.tostr(LineEncoder.encode(read)));
+				cheaters.add(LineEncoder.arange(LineEncoder.tostr(LineEncoder.encode(read))));
 				//System.out.println(Analysis.getAdressEnd(read));
 			}
 			
@@ -623,6 +624,7 @@ public class Runner {
 			// cheatersCount = 24;
 			open = new int[cheaters.size()][result.size()];
 			mat = new double[cheaters.size()][result.size()];
+			rawScores = new CmpResult[cheaters.size()][result.size()];
 
 			for (int i = 0; i < open.length; i++) {
 				for (int j = 0; j < open[i].length; j++) {
@@ -641,11 +643,14 @@ public class Runner {
 			// System.out.println("we are at "+ cheatersCount+ "/"+
 			// cheaters.size() +" cheaters");
 
+			System.out.println("loading alingment score system");
+			Alingment.loadvaluemat();
+			
 			System.out.println("starting");
 
 			// start comparing
 			gathers.add(new Gather("postOp", data));
-			gathers.add(new Gather("yo", data));
+			//gathers.add(new Gather("yo", data));
 			gathers.add(new Gather("yim", data));
 			gathers.add(new Gather("yuck", data));
 

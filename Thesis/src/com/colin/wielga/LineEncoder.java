@@ -369,6 +369,85 @@ public class LineEncoder {
 		return realresult;
 	}
 
+	
+	public static String arange(String s){
+		ArrayList<String> chunks = new ArrayList<String>();
+		ArrayList<String> stubs = new ArrayList<String>();
+		boolean onOne = false;
+		int startAt = 0;
+		String toAdd;
+		for (int i=0;i<s.length();i++){
+			if (onOne && (s.charAt(i) + "").equals(hm.get(ENDSUB))){
+				// we have reached the end of the stub
+				toAdd = s.substring(startAt, i+1);
+				// now add it to chunks in order... i am lazy so we don't use binary search
+				if (!toAdd.equals("")){
+				
+				int addAt = 0;
+				for (;addAt < stubs.size() && toAdd.length() > stubs.get(addAt).length(); addAt++){
+				}
+				stubs.add(addAt, toAdd);
+				}
+				onOne = false;
+				startAt = i+1;
+			}
+			if (!onOne && (s.charAt(i) + "").equals(hm.get(STARTSUB))){
+				// we have reached the end of the stub
+				toAdd = s.substring(startAt, i);
+				// now add it to chunks in order... i am lazy so we don't use binary search
+				if (!toAdd.equals("")){
+				
+				int addAt = 0;
+				for (;addAt < chunks.size() && toAdd.length() > chunks.get(addAt).length(); addAt++){
+				}
+				chunks.add(addAt, toAdd);
+				}
+				onOne = true;
+				startAt = i;
+			}
+		}
+		if (onOne){
+			toAdd = s.substring(startAt, s.length());
+			// now add it to chunks in order... i am lazy so we don't use binary search
+			if (!toAdd.equals("")){
+			
+			int addAt = 0;
+			for (;addAt < stubs.size() && toAdd.length() > stubs.get(addAt).length(); addAt++){
+			}
+			stubs.add(addAt, toAdd);
+			}
+		}else{
+			toAdd = s.substring(startAt, s.length());
+			// now add it to chunks in order... i am lazy so we don't use binary search
+			if (!toAdd.equals("")){
+			
+			int addAt = 0;
+			for (;addAt < chunks.size() && toAdd.length() > chunks.get(addAt).length(); addAt++){
+			}
+			chunks.add(addAt, toAdd);
+			}
+		}
+		
+		// now we add them up
+		String toRet = "";
+		
+		for (int i=0;i < chunks.size();i++){
+			toRet = toRet + chunks.get(i);
+		}
+		for (int i=0;i < stubs.size();i++){
+			toRet = toRet + stubs.get(i);
+		}
+		
+		if (toRet.length()!= s.length()){
+			System.out.println("colin! its not doing what you want ...again");
+		}
+		
+		return toRet;
+		
+		
+		
+	}
+	
 	public static String[] encode(String f) {
 		//System.out.println("encodig file " + f);
 		ArrayList<String> holder = new ArrayList<String>();

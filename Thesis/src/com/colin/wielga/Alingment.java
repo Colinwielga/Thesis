@@ -45,15 +45,15 @@ public class Alingment {
 			e.printStackTrace();
 		}
 		// make sure it worked:
-		for (int i = 0; i < axis.size(); i++) {
-			System.out.println(i + " " + axis.get(i));
-		}
-		for (int i = 0; i < valuemat.length; i++) {
-			for (int j = 0; j < valuemat[i].length; j++) {
-				System.out.print(valuemat[i][j] + ",");
-			}
-			System.out.println();
-		}
+//		for (int i = 0; i < axis.size(); i++) {
+//			System.out.println(i + " " + axis.get(i));
+//		}
+//		for (int i = 0; i < valuemat.length; i++) {
+//			for (int j = 0; j < valuemat[i].length; j++) {
+//				System.out.print(valuemat[i][j] + ",");
+//			}
+//			System.out.println();
+//		}
 
 	}
 
@@ -85,12 +85,12 @@ public class Alingment {
 		}
 
 		// print pathmat
-		for (int i = 0; i < pathmat.length; i++) {
-			for (int j = 0; j < pathmat[i].length; j++) {
-				System.out.print(pathmat[i][j] + ",");
-			}
-			System.out.println();
-		}
+//		for (int i = 0; i < pathmat.length; i++) {
+//			for (int j = 0; j < pathmat[i].length; j++) {
+//				System.out.print(pathmat[i][j] + ",");
+//			}
+//			System.out.println();
+//		}
 
 		// TODO it might be nice to be able to see what is the winning result
 		return pathmat[a.length()][b.length()];
@@ -128,12 +128,12 @@ public class Alingment {
 		}
 
 		// print pathmat
-		for (int i = 0; i < pathmat.length; i++) {
-			for (int j = 0; j < pathmat[i].length; j++) {
-				System.out.print(pathmat[i][j] + ",");
-			}
-			System.out.println();
-		}
+//		for (int i = 0; i < pathmat.length; i++) {
+//			for (int j = 0; j < pathmat[i].length; j++) {
+//				System.out.print(pathmat[i][j] + ",");
+//			}
+//			System.out.println();
+//		}
 
 		// TODO it might be nice to be able to see what is the winning result
 		return currentMax;
@@ -173,7 +173,6 @@ public class Alingment {
 	}
 
 	private static int getAxisPos(char c) {
-		// TODO Auto-generated method stub
 		int ret = 0;
 		while (axis.get(ret) != c) {
 			ret++;

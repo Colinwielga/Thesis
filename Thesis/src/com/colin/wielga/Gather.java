@@ -31,11 +31,14 @@ public class Gather implements Runnable {
 					// + Runner.result.size() + " result: "
 					// + Runner.result.get(j));
 					//System.out.println(i + "," + j);
-					Runner.open[i][j] = Runner.TOWRITE;
-					double q3 = Cmp.qc3(Runner.cheaters.get(i),
-							Runner.result.get(j));
-					Runner.mat[i][j] = q3;
-					// Runner.mat[i][j] = q3;
+					//Runner.open[i][j] = Runner.TOWRITE;
+					//Runner.mat[i][j] = Cmp.countCmp(Runner.cheaters.get(i), Runner.result.get(j));
+					//Runner.mat[i][j] = Alingment.globalAl(Runner.cheaters.get(i),Runner.result.get(j));
+					
+					CmpResult q3 = Cmp.qc3(Runner.cheaters.get(i),Runner.result.get(j));
+					Runner.rawScores[i][j] = q3;
+					Runner.mat[i][j] = q3.score;
+					
 					// int q1 = Cmp.qc_rapper(Runner.result.get(i),
 					// Runner.cheaters.get(j));
 
@@ -69,8 +72,10 @@ public class Gather implements Runnable {
 			}
 			if (analysis) {
 				System.out.println("writing");
-				Runner.writeAll(Runner.mat, data);
+				// Analysis.order();
+				// Runner.writeAll(Runner.mat, data);
 				System.out.println("Analysing");
+				//Analysis.finalscore();
 				Analysis.printAll();
 			}
 		}

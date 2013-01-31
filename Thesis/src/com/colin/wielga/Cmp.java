@@ -2,14 +2,45 @@ package com.colin.wielga;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class Cmp {
 
+	private static final int UNMATCHED = 1;
 	public static StraightCoexistArray coexist = new StraightCoexistArray();
 
 	public static void cmpProject(String[] a, String[] b) {
 
 	}
+	
+	
+	public static int countCmp(String a, String b){
+		HashMap<Character, Integer> count = new HashMap<Character,Integer>();
+		ArrayList<Character> chars = new ArrayList<Character>();
+		for (int i=0;i<a.length();i++){
+			if (count.containsKey(a.charAt(i))){
+				count.put(a.charAt(i), 1 + count.get(a.charAt(i)));
+			}else{
+				count.put(a.charAt(i),1);
+				chars.add(a.charAt(i));
+			}
+		}
+		for (int i=0;i<b.length();i++){
+			if (count.containsKey(b.charAt(i))){
+				count.put(b.charAt(i), count.get(b.charAt(i)) - 1);
+			}else{
+				count.put(b.charAt(i),-1);
+				chars.add(b.charAt(i));
+			}
+		}
+		int toRet = 0;
+		for (int i=0;i<chars.size();i++){
+			toRet += Math.abs(count.get(chars.get(i)));
+		}
+		return -toRet;
+		
+	}
+	
 
 	public static int qc_rapper(String a, String b) {
 		boolean[][] big = new boolean[a.length()][b.length()];
@@ -35,7 +66,7 @@ public class Cmp {
 	//
 	// }
 
-	public static double qc3(String a, String b) {
+	public static CmpResult qc3(String a, String b) {
 		boolean[][] big = new boolean[a.length()][b.length()];
 		boolean OneInTheOven = false;
 		int startx = 0;
@@ -241,7 +272,7 @@ public class Cmp {
 		}
 		
 		//for unmatched dudes
-		//resultsum = resultsum + totalLen*2 - a.length() - b.length();
+		resultsum = resultsum + (totalLen*2 - a.length() - b.length())*UNMATCHED;
 		
 
 		// System.out.println();
@@ -282,7 +313,19 @@ public class Cmp {
 		// //printbig(toprint);
 		// return
 
-		return resultsum;
+
+	    int[] yupp = new int[result.size()];
+	    for (int i = 0; i<result.size() ; i++){
+	    	yupp[i] = result.get(i).len[0];
+	    }
+	    
+	    for (int i=0;i<result.size();i++){
+	    	if (result.get(i).len.length >1){
+	    		System.out.println("this is bad..");
+	    	}
+	    }
+		
+		return new CmpResult(resultsum,yupp,Math.abs((totalLen*2 - a.length() - b.length())));
 	}
 
 	private static ArrayList<Straight> addSorted(ArrayList<Straight> straights,
